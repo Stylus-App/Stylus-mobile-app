@@ -24,7 +24,7 @@ class Body extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: SizeConfig.screenHeight * 0.04), // 4%
-                Text("Join Dream!", style: headingStyle),
+                Text("Join Stylus!", style: headingStyle),
                 const Text(
                   "Please enter your email and \ncreate password",
                   textAlign: TextAlign.center,
