@@ -1,13 +1,14 @@
-//import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:draemai/components/custom_surfix_icon.dart';
 import 'package:draemai/components/default_button.dart';
 import 'package:draemai/components/form_error.dart';
+import 'package:draemai/services/preferences.dart';
 //import 'package:katale_ko_client/components/custom_surfix_icon.dart';
 //import 'package:katale_ko_client/components/default_button.dart';
-//import 'package:katale_ko_client/components/form_error.dart';
+import 'package:draemai/components/form_error.dart';
 //import 'package:katale_ko_client/screens/complete_profile/complete_profile_screen.dart';
-//import 'package:katale_ko_client/services/auth_service.dart';
+import 'package:draemai/services/auth_service.dart';
 import 'dart:io';
 import 'package:draemai/screens/signin/sign_in_screen.dart';
 
@@ -23,12 +24,13 @@ class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
   String? email;
   String? password;
-  String? conform_password;
+  String? confirm_password;
   bool remember = false;
   final List<String?> errors = [];
 
   void addError({String? error}) {
     if (!errors.contains(error))
+      // ignore: curly_braces_in_flow_control_structures
       setState(() {
         errors.add(error);
       });
@@ -36,6 +38,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   void removeError({String? error}) {
     if (errors.contains(error))
+      // ignore: curly_braces_in_flow_control_structures
       setState(() {
         errors.remove(error);
       });
@@ -97,14 +100,14 @@ class _SignUpFormState extends State<SignUpForm> {
           TextFormField(
               obscureText: true,
               controller: ConfirmPasswordController,
-              onSaved: (newValue) => conform_password = newValue,
+              onSaved: (newValue) => confirm_password = newValue,
               onChanged: (value) {
                 if (value.isNotEmpty) {
                   removeError(error: kPassNullError);
-                } else if (value.isNotEmpty && password == conform_password) {
+                } else if (value.isNotEmpty && password == confirm_password) {
                   removeError(error: kMatchPassError);
                 }
-                conform_password = value;
+                confirm_password = value;
               },
               validator: (value) {
                 if (value!.isEmpty) {
@@ -129,7 +132,7 @@ class _SignUpFormState extends State<SignUpForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           loading
-              ? CircularProgressIndicator()
+              ? const CircularProgressIndicator()
               : DefaultButton(
                   text: "Sign up",
                   press: () async {
@@ -141,17 +144,18 @@ class _SignUpFormState extends State<SignUpForm> {
                       _formKey.currentState!.save();
                       // if all are valid then go to success screen
                       //
-                      // User? result = await Authentication().register(
-                      //     EmailFormController.text,
-                      //     ConfirmPasswordController.text,
-                      //     context);
+                      User? result = await Authentication().register(
+                          EmailFormController.text,
+                          ConfirmPasswordController.text,
+                          context);
                       setState() {
                         loading = false;
                       }
 
-                      final filename = 'email_key.txt';
-                      var file = await File(filename)
-                          .writeAsString(EmailFormController.text);
+                      //final filename = 'email_key.txt';
+                      //var file = await File(filename)
+                      //    .writeAsString(EmailFormController.text);
+                      save_to_file('email_key', EmailFormController.text);
                       // if (result != null) {
                       //   Navigator.pushNamed(
                       //       context, CompleteProfileScreen.routeName);
@@ -192,14 +196,14 @@ class _SignUpFormState extends State<SignUpForm> {
     TextEditingController ConfirmPasswordController = TextEditingController();
     return TextFormField(
       obscureText: true,
-      onSaved: (newValue) => conform_password = newValue,
+      onSaved: (newValue) => confirm_password = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
-        } else if (value.isNotEmpty && password == conform_password) {
+        } else if (value.isNotEmpty && password == confirm_password) {
           removeError(error: kMatchPassError);
         }
-        conform_password = value;
+        confirm_password = value;
       },
       validator: (value) {
         if (value!.isEmpty) {
@@ -211,13 +215,14 @@ class _SignUpFormState extends State<SignUpForm> {
         }
         return null;
       },
+      // ignore: prefer_const_constructors
       decoration: InputDecoration(
         labelText: "Confirm Password",
         hintText: "Re-enter your password",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
+        suffixIcon: const CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
       ),
     );
   }

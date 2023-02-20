@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
+import 'package:firebase_core/firebase_core.dart';
 import 'package:draemai/routes.dart';
 import 'package:draemai/screens/splash/splash_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  //runApp(MyApp());
   runApp(const MyApp());
 }
 

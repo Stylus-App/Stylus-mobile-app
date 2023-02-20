@@ -1,5 +1,9 @@
+// ignore_for_file: non_constant_identifier_names
+
+// ignore: depend_on_referenced_packages
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Authentication {
@@ -9,12 +13,13 @@ class Authentication {
     try {
       UserCredential userCredential = await firebaseAuth
           .createUserWithEmailAndPassword(email: Email, password: Password);
+      print(userCredential.user!.uid);
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(e.toString()),
-        backgroundColor: Colors.deepOrange,
-        padding: EdgeInsets.all(25),
+        backgroundColor: Colors.indigo,
+        padding: const EdgeInsets.all(25),
       ));
     }
   }
@@ -55,23 +60,23 @@ class Authentication {
   }
 
   Future googleSignIn(context) async {
-    try
-    {final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    if (googleUser != null) {
-      final GoogleSignInAuthentication googleAuth =
-      await googleUser.authentication;
-      final credentials = GoogleAuthProvider.credential(
-          accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser != null) {
+        final GoogleSignInAuthentication googleAuth =
+            await googleUser.authentication;
+        final credentials = GoogleAuthProvider.credential(
+            accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
 
-      UserCredential userCredential = await firebaseAuth.signInWithCredential(credentials);
-      return userCredential;
-    }
-    }on FirebaseAuthException catch(e){
+        UserCredential userCredential =
+            await firebaseAuth.signInWithCredential(credentials);
+        return userCredential;
+      }
+    } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(e.toString()),
         backgroundColor: Colors.deepOrange,
       ));
     }
-
   }
 }
