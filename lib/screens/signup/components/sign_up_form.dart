@@ -132,6 +132,7 @@ class _SignUpFormState extends State<SignUpForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           loading
+              // ignore: dead_code
               ? const CircularProgressIndicator()
               : DefaultButton(
                   text: "Sign up",

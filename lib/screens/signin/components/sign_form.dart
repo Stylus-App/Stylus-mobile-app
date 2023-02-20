@@ -1,12 +1,11 @@
-//import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:draemai/components/custom_surfix_icon.dart';
 import 'package:draemai/components/form_error.dart';
 //import 'package:dreamai/helper/keyboard.dart';
 
 //import 'package:katale_ko_client/screens/forgot_password/forgot_password_screen.dart';
-//import 'package:katale_ko_client/screens/login_success/login_success_screen.dart';
-//import 'package:katale_ko_client/services/auth_service.dart';
+import 'package:draemai/services/auth_service.dart';
 import 'package:draemai/screens/signup/sign_up_screen.dart';
 import 'package:draemai/screens/login_success/login_success_screen.dart';
 
@@ -27,17 +26,19 @@ class _SignFormState extends State<SignForm> {
   final List<String?> errors = [];
 
   void addError({String? error}) {
-    if (!errors.contains(error))
+    if (!errors.contains(error)) {
       setState(() {
         errors.add(error);
       });
+    }
   }
 
   void removeError({String? error}) {
-    if (errors.contains(error))
+    if (errors.contains(error)) {
       setState(() {
         errors.remove(error);
       });
+    }
   }
 
   @override
@@ -151,30 +152,28 @@ class _SignFormState extends State<SignForm> {
               : DefaultButton(
                   text: "Login",
                   press: () async {
-                    Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+                    //Navigator.pushNamed(context, LoginSuccessScreen.routeName);
                     setState() {
-                      //loading = true;
-                      // Navigator.pushNamed(
-                      //     context, LoginSuccessScreen.routeName);
+                      loading = true;
                     }
 
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
                       // if all are valid then go to success screen
                       // KeyboardUtil.hideKeyboard(context);
-                      // User? result = await Authentication().login(
-                      //     EmailFormController.text,
-                      //     PasswordFormController.text,
-                      //     context);
+                      User? result = await Authentication().login(
+                          EmailFormController.text,
+                          PasswordFormController.text,
+                          context);
                       setState() {
                         loading = false;
                       }
 
-                      // if (result != null) {
-                      //   Navigator.pushNamed(
-                      //       context, LoginSuccessScreen.routeName);
-                      // }
-                      //
+                      if (result != null) {
+                        // ignore: use_build_context_synchronously
+                        Navigator.pushNamed(
+                            context, LoginSuccessScreen.routeName);
+                      }
                     }
                   },
                 ),

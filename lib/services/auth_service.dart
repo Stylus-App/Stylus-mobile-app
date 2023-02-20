@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Authentication {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
@@ -13,7 +14,10 @@ class Authentication {
     try {
       UserCredential userCredential = await firebaseAuth
           .createUserWithEmailAndPassword(email: Email, password: Password);
-      print(userCredential.user!.uid);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('email', Email);
+      prefs.setString('password', Password);
+      prefs.setString('id', userCredential.user!.uid);
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
