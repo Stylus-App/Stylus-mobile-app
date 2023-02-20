@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "453969796350",
+    "project_id": "stylus-76d03",
+    "storage_bucket": "stylus-76d03.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:453969796350:android:7c8ca3d73df5b0b035d9af",
+        "android_client_info": {
+          "package_name": "com.example.draemai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "453969796350-fr5o7vlmflh41ojhcqm0ejli89397tn2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBPbuBwwloaZjdhRyvmFTyUAbliWplvzs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "453969796350-fr5o7vlmflh41ojhcqm0ejli89397tn2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
