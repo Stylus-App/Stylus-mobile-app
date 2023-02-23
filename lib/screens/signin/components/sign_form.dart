@@ -51,7 +51,7 @@ class _SignFormState extends State<SignForm> {
       child: Column(
         children: [
           TextFormField(
-            //controller: EmailFormController,
+            controller: EmailFormController,
             keyboardType: TextInputType.emailAddress,
             onSaved: (newValue) => email = newValue,
             onChanged: (value) {
@@ -86,7 +86,7 @@ class _SignFormState extends State<SignForm> {
           ),
           SizedBox(height: getProportionateScreenHeight(30)),
           TextFormField(
-            //controller: PasswordFormController,
+            controller: PasswordFormController,
             obscureText: true,
             onSaved: (newValue) => password = newValue,
             onChanged: (value) {

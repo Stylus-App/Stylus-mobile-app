@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:dio/dio.dart';
 
 class Authentication {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
@@ -29,9 +30,13 @@ class Authentication {
   }
 
   Future login(String Email, String Password, context) async {
+    final dio = Dio();
+    print(Email);
+    print(Password);
     try {
       UserCredential userCredential = await firebaseAuth
           .signInWithEmailAndPassword(email: Email, password: Password);
+      final response = await dio.get('https://dart.dev');
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
