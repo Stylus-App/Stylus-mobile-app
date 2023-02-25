@@ -23,6 +23,7 @@ class _SignFormState extends State<SignForm> {
   String? email;
   String? password;
   bool? remember = false;
+  bool loading = false;
   final List<String?> errors = [];
 
   void addError({String? error}) {
@@ -43,7 +44,7 @@ class _SignFormState extends State<SignForm> {
 
   @override
   Widget build(BuildContext context) {
-    bool loading = false;
+    //bool loading = false;
     TextEditingController EmailFormController = TextEditingController();
     TextEditingController PasswordFormController = TextEditingController();
     return Form(
@@ -152,10 +153,12 @@ class _SignFormState extends State<SignForm> {
               : DefaultButton(
                   text: "Login",
                   press: () async {
+                    //---->Navigator.pushNamed(context, LoginSuccessScreen.routeName);
                     //Navigator.pushNamed(context, LoginSuccessScreen.routeName);
-                    setState() {
+
+                    setState(() {
                       loading = true;
-                    }
+                    });
 
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
@@ -165,9 +168,9 @@ class _SignFormState extends State<SignForm> {
                           EmailFormController.text,
                           PasswordFormController.text,
                           context);
-                      setState() {
+                      setState(() {
                         loading = false;
-                      }
+                      });
 
                       if (result != null) {
                         // ignore: use_build_context_synchronously

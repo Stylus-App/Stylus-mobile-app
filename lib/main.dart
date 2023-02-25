@@ -1,3 +1,5 @@
+import 'package:draemai/screens/Home/home_screen.dart';
+import 'package:draemai/services/auth_service.dart';
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
@@ -25,7 +27,16 @@ class MyApp extends StatelessWidget {
             color: Colors.white,
             elevation: 0),
       ),
-      home: const SplashScreen(),
+      home: StreamBuilder(
+        stream: Authentication().firebaseAuth.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return HomeScreen();
+          } else {
+            return SplashScreen();
+          }
+        },
+      ),
       routes: routes,
     );
   }

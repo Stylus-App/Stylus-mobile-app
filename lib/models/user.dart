@@ -1,24 +1,24 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class User {
+class ApiUser {
   String id;
   // ignore: non_constant_identifier_names
   String Email;
   // ignore: non_constant_identifier_names
   String Password;
-  User({
+  ApiUser({
     required this.id,
     required this.Email,
     required this.Password,
   });
 
-  User copyWith({
+  ApiUser copyWith({
     String? id,
     String? Email,
     String? Password,
   }) {
-    return User(
+    return ApiUser(
       id: id ?? this.id,
       Email: Email ?? this.Email,
       Password: Password ?? this.Password,
@@ -33,8 +33,8 @@ class User {
     };
   }
 
-  factory User.fromMap(Map<String, dynamic> map) {
-    return User(
+  factory ApiUser.fromMap(Map<String, dynamic> map) {
+    return ApiUser(
       id: map['id'] as String,
       Email: map['Email'] as String,
       Password: map['Password'] as String,
@@ -43,14 +43,14 @@ class User {
 
   String toJson() => json.encode(toMap());
 
-  factory User.fromJson(String source) =>
-      User.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory ApiUser.fromJson(String source) =>
+      ApiUser.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'User(id: $id, Email: $Email, Password: $Password)';
+  String toString() => 'ApiUser(id: $id, Email: $Email, Password: $Password)';
 
   @override
-  bool operator ==(covariant User other) {
+  bool operator ==(covariant ApiUser other) {
     if (identical(this, other)) return true;
 
     return other.id == id && other.Email == Email && other.Password == Password;

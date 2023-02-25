@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 // import 'package:katale_ko_client/size_config.dart';
 import 'package:draemai/components/default_button.dart';
 import 'package:draemai/size_config.dart';
-import 'package:draemai/screens/Home/home_screen.dart';
+//import 'package:draemai/screens/Home/home_screen.dart';
+import 'package:draemai/screens/upload/upload_screen.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -61,7 +62,7 @@ class Body extends StatelessWidget {
                                 text: "Get Started",
                               ),
                               onTap: () => Navigator.pushNamed(
-                                  context, HomeScreen.routeName)),
+                                  context, UploadScreen.routeName)),
                         )
                       ],
                     ),

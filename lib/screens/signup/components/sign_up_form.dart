@@ -26,6 +26,7 @@ class _SignUpFormState extends State<SignUpForm> {
   String? password;
   String? confirm_password;
   bool remember = false;
+  bool loading = false;
   final List<String?> errors = [];
 
   void addError({String? error}) {
@@ -46,7 +47,6 @@ class _SignUpFormState extends State<SignUpForm> {
 
   @override
   Widget build(BuildContext context) {
-    bool loading = false;
     TextEditingController EmailFormController = TextEditingController();
     TextEditingController ConfirmPasswordController = TextEditingController();
     return Form(
@@ -84,16 +84,7 @@ class _SignUpFormState extends State<SignUpForm> {
                       const CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25),
-                  ))
-              //InputDecoration(
-              //   labelText: "Email",
-              //   hintText: "Enter your email",
-              //   // If  you are using latest version of flutter then lable text and hint text shown like this
-              //   // if you r using flutter less then 1.20.* then maybe this is not working properly
-              //   floatingLabelBehavior: FloatingLabelBehavior.always,
-              //   suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
-              // ),
-              ),
+                  ))),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPasswordFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
@@ -121,8 +112,6 @@ class _SignUpFormState extends State<SignUpForm> {
               },
               decoration: InputDecoration(
                   hintText: " Re-enter Password",
-                  // If  you are using latest version of flutter then lable text and hint text shown like this
-                  // if you r using flutter less then 1.20.* then maybe this is not working properly
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                   suffixIcon:
                       const CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
@@ -132,14 +121,15 @@ class _SignUpFormState extends State<SignUpForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           loading
-              // ignore: dead_code
-              ? const CircularProgressIndicator()
+              ? const CircularProgressIndicator(
+                  color: kPrimaryColor,
+                )
               : DefaultButton(
                   text: "Sign up",
                   press: () async {
-                    setState() {
+                    setState(() {
                       loading = true;
-                    }
+                    });
 
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
@@ -149,18 +139,15 @@ class _SignUpFormState extends State<SignUpForm> {
                           EmailFormController.text,
                           ConfirmPasswordController.text,
                           context);
-                      setState() {
+                      setState(() {
                         loading = false;
-                      }
+                      });
 
-                      //final filename = 'email_key.txt';
-                      //var file = await File(filename)
-                      //    .writeAsString(EmailFormController.text);
                       save_to_file('email_key', EmailFormController.text);
-                      // if (result != null) {
-                      //   Navigator.pushNamed(
-                      //       context, CompleteProfileScreen.routeName);
-                      // }
+                      if (result != null) {
+                        // ignore: use_build_context_synchronously
+                        Navigator.pushNamed(context, SignInScreen.routeName);
+                      }
                     }
                   },
                 ),

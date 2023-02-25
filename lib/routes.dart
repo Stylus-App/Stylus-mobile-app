@@ -4,6 +4,7 @@ import 'package:draemai/screens/signup/sign_up_screen.dart';
 import 'package:draemai/screens/login_success/login_success_screen.dart';
 import 'package:draemai/screens/Home/home_screen.dart';
 import 'package:draemai/screens/create/create_screen.dart';
+import 'package:draemai/screens/upload/upload_screen.dart';
 
 // We use name route
 // All our routes will be available here
@@ -13,6 +14,7 @@ final Map<String, WidgetBuilder> routes = {
   // ForgotPasswordScreen.routeName: (context) => ForgotPasswordScreen(),
   LoginSuccessScreen.routeName: (context) => LoginSuccessScreen(),
   SignUpScreen.routeName: (context) => const SignUpScreen(),
+  UploadScreen.routeName: (context) => const UploadScreen(),
   // CompleteProfileScreen.routeName: (context) => CompleteProfileScreen(),
   // OtpScreen.routeName: (context) => OtpScreen(),
   HomeScreen.routeName: (context) => HomeScreen(),

@@ -22,19 +22,22 @@ class _BodyState extends State<Body> {
       "text":
           "Unleash your creativity and transform your \n photos into works of \n art with just a few \n clicks",
       "image": "assets/images/splash/s2.png",
-      "title": "Dream AI"
+      "title": "Dream AI",
+      "index": "1"
     },
     {
       "text":
           "Experience the fun and excitement of creating \n unique, beautiful images \n and  Discover the artist \n within you",
       "image": "assets/images/splash/s10.png",
-      "title": ""
+      "title": "",
+      "index": "2"
     },
     {
       "text":
           "Find inspiration to \n bring your visions \n into life with our app, elevate and transform mundane photos into dynamic, eye-catching \n  images ",
       "image": "assets/images/splash/s20.png",
-      "title": ""
+      "title": "",
+      "index": "3"
     },
   ];
   @override
@@ -80,12 +83,17 @@ class _BodyState extends State<Body> {
                         ),
                       ),
                       const Spacer(flex: 3),
-                      DefaultButton(
-                        text: "Continue",
-                        press: () {
-                          Navigator.pushNamed(context, SignInScreen.routeName);
-                        },
-                      ),
+                      // ignore: unrelated_type_equality_checks
+                      if (splashData[index]['index'] == "3")
+                        DefaultButton(
+                          text: "Continue",
+                          press: () {
+                            Navigator.pushNamed(
+                                context, SignInScreen.routeName);
+                          },
+                        )
+                      else
+                        const Spacer(),
                       const Spacer(),
                     ],
                   ),
